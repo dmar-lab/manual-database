@@ -1,10 +1,11 @@
 package dmar.oldbikelist.manual;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import dmar.oldbikelist.R;
 import dmar.oldbikelist.manual.model.Bike;

@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".manual.ManualDatabaseBikeListActivity">
+        <activity
+            android:name=".manual.ManualDatabaseBikeListActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

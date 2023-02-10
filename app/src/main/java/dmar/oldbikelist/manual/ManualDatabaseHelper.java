@@ -45,7 +45,6 @@ public class ManualDatabaseHelper extends SQLiteOpenHelper {
 
     private void recreateDB(SQLiteDatabase db) {
         db.execSQL("drop table if exists bikes");
-        //create table user here
         db.execSQL("create table bikes (" +
         "id integer primary key autoincrement not null, " +
         "bike_no TEXT, " +

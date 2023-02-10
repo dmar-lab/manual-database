@@ -3,4 +3,8 @@
     <string name="the_detail">Bike</string>
     <string name="hint_enter_bike_number">Enter bike number</string>
     <string name="hint_enter_security_code">Enter security code</string>
+    <string name="delete">Usuń</string>
+
+    <string name="action_about">Nazwa pakietu</string>
+    <string name="action_exit">Wyjście</string>
 </resources>

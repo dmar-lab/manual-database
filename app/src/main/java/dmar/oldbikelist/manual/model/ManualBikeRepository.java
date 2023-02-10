@@ -16,22 +16,21 @@ public class ManualBikeRepository {
     public static List<Bike> findAll(Context context) {
         ManualDatabaseHelper databaseHelper = ManualDatabaseHelper.getInstance(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        // change raw query to apropriate methods
+        // change raw query to appropriate methods
         Cursor cursor = db.rawQuery("select * from bikes", null);
 
         List<Bike> bikeList = new ArrayList<>();
-        //kursor zawiera wiele instancji Bike
+        // cursor contains many instances of Bike
         while (cursor.moveToNext()) {
             Bike bike = new Bike();
-            bike.setId(cursor.getLong(0)); //zmienilem na getLong, bylo getInt
+            bike.setId(cursor.getLong(0));
             bike.setBikeNo(cursor.getString(1));
             bike.setSecurityCode(cursor.getString(2));
             bike.setOther1(cursor.getString(3));
             bike.setOther2(cursor.getString(4));
             bikeList.add(bike);
         }
-        //czy nalezy zamknac kursor ?
-        db.close(); //dodalem to
+        db.close();
         return bikeList;
     }
 
@@ -72,7 +71,7 @@ public class ManualBikeRepository {
         values.put("other2",bike.getOther2());
         int result = db.update("bikes", values, "id = ?",
                 new String[]{Long.toString(bike.getId())});
-        //zobacz w logach co wpadlo
+        //see logs, what happened
         Log.d("update count", "update count: " + result);
         db.close();
     }

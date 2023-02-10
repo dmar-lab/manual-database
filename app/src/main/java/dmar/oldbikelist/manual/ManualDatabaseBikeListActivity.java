@@ -1,7 +1,7 @@
 package dmar.oldbikelist.manual;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
 import dmar.oldbikelist.R;
@@ -27,16 +27,11 @@ import dmar.oldbikelist.manual.model.ManualBikeRepository;
 /**
  * Based on javastart.pl author on 2017-10-03.
  */
-//TODO
-    //increase literal on the list
 public class ManualDatabaseBikeListActivity extends AppCompatActivity {
 
     private EditText bikeNoEditText;
     private EditText securityCodeEditText;
-    private Button addBikeBtn;
-    private ListView bikeListView;
     private ManualBikeAdapter bikeListAdapter; //internal class
-    private List<Bike> bikeList = new ArrayList <>();
 
     public ManualDatabaseBikeListActivity() {
     }
@@ -44,32 +39,28 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_bike_list);
+        setContentView(R.layout.activity_database_bike_list); //??
 
         bikeNoEditText = findViewById(R.id.bike);
         securityCodeEditText = findViewById(R.id.security_code);
-        addBikeBtn = findViewById(R.id.add_new_user_btn);
-        bikeListView = findViewById(R.id.list);
+        Button addBikeButton = findViewById(R.id.add_new_user_btn);
+        ListView bikeListView = findViewById(R.id.list);
 
         //initialization a new bike
-        //na poczatek tylko dwa pierwsze pola
-        addActionForBikeAddBtn(addBikeBtn);
+        //two fields now, four fields later
+        addActionForBikeAddBtn(addBikeButton);
 
         bikeListAdapter = new ManualBikeAdapter(); //internal class
         updateBikeList(); //refresh the list
         bikeListView.setAdapter(bikeListAdapter);
 
-        bikeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ManualDatabaseBikeListActivity.this,
-                        ManualDatabaseBikeActivity.class);
-                intent.putExtra(ManualDatabaseBikeActivity.PARAM_BIKE_ID, id);
-                startActivity(intent);
-            }
+        bikeListView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(ManualDatabaseBikeListActivity.this,
+                    ManualDatabaseBikeActivity.class);
+            intent.putExtra(ManualDatabaseBikeActivity.PARAM_BIKE_ID, id);
+            startActivity(intent);
         });
     }
-
 
     @Override
     protected void onResume() {
@@ -78,19 +69,16 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
     }
 
     private void addActionForBikeAddBtn(Button addBikeBtn) {
-        addBikeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bikeNoEditText.getText().toString().isEmpty()
-                        || securityCodeEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(ManualDatabaseBikeListActivity.this,
-                            "Uzupełnij obydwa pola",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    addBike();
-                    bikeNoEditText.setText("");
-                    securityCodeEditText.setText("");
-                }
+        addBikeBtn.setOnClickListener(v -> {
+            if (bikeNoEditText.getText().toString().isEmpty()
+                    || securityCodeEditText.getText().toString().isEmpty()) {
+                Toast.makeText(ManualDatabaseBikeListActivity.this,
+                        "Uzupełnij obydwa pola",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                addBike();
+                bikeNoEditText.setText("");
+                securityCodeEditText.setText("");
             }
         });
     }
@@ -105,7 +93,7 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
 
     private void updateBikeList() {
         //pobranie rekordow z bazy
-        bikeList = ManualBikeRepository.findAll(this);
+        List<Bike> bikeList = ManualBikeRepository.findAll(this);
         bikeListAdapter.setBikeList(bikeList);
         bikeListAdapter.notifyDataSetChanged();
     }
@@ -113,16 +101,16 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
     //co jeszcze z niej korzysta
     public class ManualBikeAdapter extends BaseAdapter {
 
-        private List<Bike> bikeList;
+        private List<Bike> adapterBikeList;
 
         @Override
         public int getCount() {
-            return bikeList.size();
+            return adapterBikeList.size();
         }
 
         @Override
         public Bike getItem(int position) {
-            return bikeList.get(position);
+            return adapterBikeList.get(position);
         }
 
         @Override
@@ -130,6 +118,7 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
             return getItem(position).getId();
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -139,13 +128,12 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
             }
             TextView text = convertView.findViewById(android.R.id.text1);
             Bike bike = getItem(position);
-            // dont concatenate with setText
             text.setText(bike.getBikeNo() + " -> " + bike.getSecurityCode());
             return convertView;
         }
 
-        public void setBikeList(List<Bike> bikeList) {
-            this.bikeList = bikeList;
+        public void setBikeList(List<Bike> adapterBikeList) {
+            this.adapterBikeList = adapterBikeList;
         }
     }
 

@@ -3,8 +3,9 @@ package dmar.oldbikelist.manual;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 public class ManualDatabaseHelper extends SQLiteOpenHelper {
 

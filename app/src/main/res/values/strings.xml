@@ -3,7 +3,11 @@
     <string name="the_detail">Bike</string>
     <string name="hint_enter_bike_number">Enter bike number</string>
     <string name="hint_enter_security_code">Enter security code</string>
-    <string name="delete">Usuń</string>
+    <string name="add_button">Dodaj</string>
+    <string name="delete_icon">Usuń</string>
+    <string name="other_1_et">Inne1</string>
+    <string name="other_2_et">Inne2</string>
+    <string name="save_changes_btn">Zapisz zmiany</string>
 
     <string name="action_about">Nazwa pakietu</string>
     <string name="action_exit">Wyjście</string>

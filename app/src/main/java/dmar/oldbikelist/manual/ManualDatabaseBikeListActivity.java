@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -27,6 +28,8 @@ import dmar.oldbikelist.manual.model.ManualBikeRepository;
 /**
  * Based on javastart.pl author on 2017-10-03.
  */
+//TODO duplicates possible !! fix it
+    //TODO always check shash list (it should be empty)
 public class ManualDatabaseBikeListActivity extends AppCompatActivity {
 
     private EditText bikeNoEditText;
@@ -145,9 +148,9 @@ public class ManualDatabaseBikeListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_about) {
-            Toast.makeText(ManualDatabaseBikeListActivity.this, "dmar.oldbikelist.manual DELL",
+            Toast.makeText(ManualDatabaseBikeListActivity.this, "dmar.oldbikelist DELL",
                     Toast.LENGTH_LONG).show();
             return true;
         } else if (item.getItemId() == R.id.menu_exit) {
